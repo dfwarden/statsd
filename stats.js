@@ -253,7 +253,7 @@ config.configFile(process.argv[2], function (config, oldConfig) {
 
         switch(cmd) {
           case "help":
-            stream.write("Commands: stats, counters, timers, gauges, delcounters, deltimers, delgauges, health, quit\n\n");
+            stream.write("Commands: stats, counters, timers, gauges, sets, delcounters, deltimers, delgauges, delsets, health, quit\n\n");
             break;
 
           case "health":
@@ -325,6 +325,11 @@ config.configFile(process.argv[2], function (config, oldConfig) {
             stream.write("END\n\n");
             break;
 
+          case "sets":
+            stream.write(util.inspect(sets) + "\n");
+            stream.write("END\n\n");
+            break;
+
           case "delcounters":
             mgmt.delete_stats(counters, cmdline, stream);
             break;
@@ -335,6 +340,10 @@ config.configFile(process.argv[2], function (config, oldConfig) {
 
           case "delgauges":
             mgmt.delete_stats(gauges, cmdline, stream);
+            break;
+
+          case "delsets":
+            mgmt.delete_stats(sets, cmdline, stream);
             break;
 
           case "quit":
